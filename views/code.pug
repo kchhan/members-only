@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  h2 Enter the secret code so you can become a full member!
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='code') Code:
+      input(type='text' name='code', required='true', value=(undefined===input ? '' : input))
+    button(type='submit') Submit
+
+  if msg
+    p #{msg}
+
+  a(href='/') I'll enter the secret code later

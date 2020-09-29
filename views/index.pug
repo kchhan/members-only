@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  h1= title
+
+  //- If a user is logged in
+  if user !== undefined
+    p Welcome #{user.first_name}
+    p Membership: #{user.membership}
+    if user.membership === "Non-Member"
+      p
+        a(href='/code') Enter the secret code to become a full member!
+    a(href='/logout') Log Out
+
+  //- If there is no user logged in
+  if user == undefined
+    p Welcome
+    p
+      a(href='/login') Log In
+    p
+      a(href='/sign-up') Sign Up
+
+  //- Shows all messages
+  ul
+    each message in message_list
+      if user !== undefined
+        li #{ message.user }
+      li #{ message.text }
+      li #{ message.added }
+
+  //- Form only shows if use is a Member or Admin
+  if user !== undefined
+    if user.membership === "Member" || user.membership === "Admin"
+      form
+        div.form-group
+          label(for="title") Message Title:
+          input(type="text" name="title" value=(undefined === message ? "" : message.title))
+        div.form-group
+          label(for="text") Message Body:
+          input(type="text" name="text" value=(undefined === message ? "" : message.text))
+        button(type="submit") Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

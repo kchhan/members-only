@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  p #{msg}
+
+  form(method="POST" action='')
+    div.form-group
+      label(for='username') Username:
+      input(type='text', name='username', required='true')
+    div.form-group
+      label(for='password') Password:
+      input(type='password', name='password', required='true')
+    button(type='submit') Submit
+  
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
+  p First time? 
+    a(href='/sign-up') Sign Up
+
+  p
+    a(href='/') Go Back
+
+  
