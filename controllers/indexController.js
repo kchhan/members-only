@@ -35,6 +35,7 @@ exports.index_post = [
     .withMessage('A title is required')
     .isLength({ max: 50 })
     .withMessage('The title is too long. Max 50 characters'),
+
   body('text')
     .trim()
     .isLength({ min: 1 })
@@ -50,7 +51,7 @@ exports.index_post = [
     const errors = validationResult(req);
 
     const message = new Message({
-      user: req.user.id,
+      user: req.user,
       title: req.body.title,
       text: req.body.text,
       added: moment().format('MM/DD/YY, h:mm:ss'),
@@ -123,7 +124,7 @@ exports.sign_up_post = [
       });
     }),
 
-  body('password').exists(),
+  check('password').exists(),
 
   check(
     'confirm_password',
@@ -235,12 +236,10 @@ exports.login_get = (req, res, next) => {
 exports.login_post = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err);
-    if (!user)
-      return res.render('login_form', {
-        title: 'Log In',
-        msg: 'Incorrect username or password',
-      });
-    req.login(user, (err) => {
+    if (!user) {
+      return res.redirect('/login');
+    }
+    req.logIn(user, function (err) {
       if (err) return next(err);
       return res.redirect('/');
     });

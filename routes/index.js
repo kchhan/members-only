@@ -13,7 +13,7 @@ router.post('/sign-up', index_controller.sign_up_post);
 
 // log in
 router.get('/login', index_controller.login_get);
-router.post('/login', index_controller.login_post);
+router.post('/login', index_controller.index_post);
 
 // secret code
 router.get('/code', index_controller.code_get);

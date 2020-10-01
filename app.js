@@ -20,7 +20,6 @@ const app = express();
 
 // setup connection to MongoDb
 const mongoose = require('mongoose');
-const { suppressDeprecationWarnings } = require('moment');
 const mongoDB = process.env.MONGODB_URI;
 // connect to MongoDB
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -71,7 +70,7 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-app.use(session({ secret: 'asdf', resave: false, saveUninitialized: true }));
+app.use(session({ secret: 'code', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));

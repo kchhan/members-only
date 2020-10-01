@@ -7,7 +7,7 @@ block content
   if user !== undefined
     p Welcome #{user.first_name}
     p Membership: #{user.membership}
-    if user.membership === "Non-Member"
+    if user.membership === 'Non-Member'
       p
         a(href='/code') Enter the secret code to become a full member!
     a(href='/logout') Log Out
@@ -21,24 +21,30 @@ block content
       a(href='/sign-up') Sign Up
 
   //- Shows all messages
-  ul
+  ul.message-container
     each message in message_list
-      if user !== undefined
-        li #{ message.user }
-      li #{ message.text }
-      li #{ message.added }
+      div.container
+        if user !== undefined
+          li #{ message.user }
+        li #{ message.title }
+        li #{ message.text }
+        li #{ message.added }
+
+    else
+      div.message-container
+        li There are no messages
 
   //- Form only shows if use is a Member or Admin
   if user !== undefined
-    if user.membership === "Member" || user.membership === "Admin"
+    if user.membership === 'Member' || user.membership === 'Admin'
       form
         div.form-group
-          label(for="title") Message Title:
-          input(type="text" name="title" value=(undefined === message ? "" : message.title))
+          label(for='title') Message Title:
+          input(type='text' name='title' value=(undefined === message ? '' : message.title))
         div.form-group
-          label(for="text") Message Body:
-          input(type="text" name="text" value=(undefined === message ? "" : message.text))
-        button(type="submit") Submit
+          label(for='text') Message Body:
+          input(type='text' name='text' value=(undefined === message ? '' : message.text))
+        button(type='submit') Submit
 
   if errors
     ul
