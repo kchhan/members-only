@@ -51,7 +51,7 @@ exports.index_post = [
     const errors = validationResult(req);
 
     const message = new Message({
-      user: req.user,
+      user: req.user.id,
       title: req.body.title,
       text: req.body.text,
       added: moment().format('MM/DD/YY, h:mm:ss'),
@@ -71,19 +71,7 @@ exports.index_post = [
     } else {
       message.save((err) => {
         if (err) return next(err);
-        Message.find({})
-          .populate('user')
-          .exec((err, list_message) => {
-            if (err) {
-              return next(err);
-            } else {
-              res.render('index', {
-                title: 'Members Only',
-                user: req.user,
-                message_list: list_message,
-              });
-            }
-          });
+        res.redirect('/');
       });
       return;
     }
@@ -194,6 +182,9 @@ exports.code_get = (req, res, next) => {
 
 // POST request for secret code form
 exports.code_post = (req, res, next) => {
+  // validate and sanitize
+  body('code').trim().escape();
+
   const code = process.env.SECRET_CODE;
   const input = req.body.code;
 
@@ -203,20 +194,7 @@ exports.code_post = (req, res, next) => {
       { $set: { membership: 'Member' } },
       (err, results) => {
         if (err) return next(err);
-
-        Message.find({})
-          .populate('user')
-          .exec((err, list_message) => {
-            if (err) {
-              return next(err);
-            } else {
-              res.render('index', {
-                title: 'Members Only',
-                user: req.user,
-                message_list: list_message,
-              });
-            }
-          });
+        res.redirect('/login');
       }
     );
   } else {
@@ -233,18 +211,12 @@ exports.login_get = (req, res, next) => {
 };
 
 // POST request for log in form
-exports.login_post = (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) return next(err);
-    if (!user) {
-      return res.redirect('/login');
-    }
-    req.logIn(user, function (err) {
-      if (err) return next(err);
-      return res.redirect('/');
-    });
-  })(req, res, next);
-};
+exports.login_post = [
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+  }),
+];
 
 // GET request for log out
 exports.logout_get = (req, res, next) => {

@@ -25,7 +25,9 @@ block content
     each message in message_list
       div.container
         if user !== undefined
-          li #{ message.user }
+          li #{ message.user.username }
+        else
+          li Anonymous User
         li #{ message.title }
         li #{ message.text }
         li #{ message.added }
@@ -37,7 +39,7 @@ block content
   //- Form only shows if use is a Member or Admin
   if user !== undefined
     if user.membership === 'Member' || user.membership === 'Admin'
-      form
+      form(method='POST' action='')
         div.form-group
           label(for='title') Message Title:
           input(type='text' name='title' value=(undefined === message ? '' : message.title))

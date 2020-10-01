@@ -3,8 +3,6 @@ extends layout
 block content
   h1 #{title}
 
-  p #{msg}
-
   form(method="POST" action='')
     div.form-group
       label(for='username') Username:
@@ -16,8 +14,8 @@ block content
   
   if errors
     ul
-      for error in errors
-        li!= error.msg
+      each error in errors
+        li!= error.message
 
   p First time? 
     a(href='/sign-up') Sign Up

@@ -45,7 +45,7 @@ passport.use(
         return done(err);
       }
       if (!user) {
-        return done(null, false, { msg: 'Incorrect username' });
+        return done(null, false, { message: 'Incorrect username' });
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
@@ -53,13 +53,14 @@ passport.use(
           return done(null, user);
         } else {
           // passwords do not match!
-          return done(null, false, { msg: 'Incorrect password' });
+          return done(null, false, { message: 'Incorrect password' });
         }
       });
       return done(null, user);
     });
   })
 );
+
 // passport uses cookies to maintain login
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -75,10 +76,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
-  next();
-});
+// for the currentUser variable
+// app.use(function (req, res, next) {
+//   res.locals.currentUser = req.user;
+//   next();
+// });
 
 // routes
 app.use('/', indexRouter);
