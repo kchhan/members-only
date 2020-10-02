@@ -167,7 +167,7 @@ exports.sign_up_post = [
           if (err) {
             return next(err);
           }
-          res.redirect('/code');
+          res.redirect('/login');
         });
         return;
       }
@@ -177,6 +177,7 @@ exports.sign_up_post = [
 
 // GET request to secret code form
 exports.code_get = (req, res, next) => {
+  console.log(req.user)
   res.render('code', { title: 'Secret Code' });
 };
 
@@ -184,23 +185,24 @@ exports.code_get = (req, res, next) => {
 exports.code_post = (req, res, next) => {
   // validate and sanitize
   body('code').trim().escape();
-
+  
   const code = process.env.SECRET_CODE;
   const input = req.body.code;
 
   if (code === input) {
     User.findByIdAndUpdate(
       req.user,
-      { $set: { membership: 'Member' } },
+      { membership: 'Member' },
       (err, results) => {
         if (err) return next(err);
-        res.redirect('/login');
+        res.redirect('/');
       }
     );
   } else {
     res.render('code', {
+      title: "Secret Code",
       input: input,
-      msg: 'Sorry that was not the secret code',
+      message: 'Sorry that was not the secret code',
     });
   }
 };

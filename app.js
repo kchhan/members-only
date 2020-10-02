@@ -37,15 +37,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({ secret: 'code', resave: false, saveUninitialized: true }));
+
 // set up passportjs
 passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
+  new LocalStrategy(function (username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
       if (err) {
         return done(err);
       }
       if (!user) {
-        return done(null, false, { message: 'Incorrect username' });
+        return done(null, false, { message: 'Incorrect username.' });
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
@@ -71,16 +73,15 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-app.use(session({ secret: 'code', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 // for the currentUser variable
-// app.use(function (req, res, next) {
-//   res.locals.currentUser = req.user;
-//   next();
-// });
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 // routes
 app.use('/', indexRouter);
