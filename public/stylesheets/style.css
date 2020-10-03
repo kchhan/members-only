@@ -1,14 +1,149 @@
+:root {
+  --white: rgb(255, 255, 255);
+  --black: rgb(0, 0, 0);
+  --sign-up: rgb(255, 159, 10);
+  --code: rgb(255, 159, 10);
+  --log-in: rgb(48, 209, 88);
+  --log-out: rgb(255, 55, 95);
+  --go-back: rgb(255, 55, 95);
+  --submit: rgb(10, 132, 255);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Lucida Grande', Arial, Helvetica, sans-serif;
 }
 
+/* utility */
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+  font-size: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  margin: 3px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.sign-up {
+  background-color: var(--sign-up);
+}
+
+.code {
+  background-color: var(--code);
+}
+
+.log-in {
+  background-color: var(--log-in);
+}
+
+.log-out {
+  background-color: var(--log-out);
+}
+
+.go-back {
+  background-color: var(--go-back);
+}
+
+.submit {
+  width: 100%;
+  background-color: var(--submit);
+}
+
+/* content */
 body {
-  padding: 50px;
+  margin: 50px auto;
+  padding: 20px;
+  max-width: 800px;
+  border: 1px solid var(--black);
+  border-radius: 15px;
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00b7ff;
+h1 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* message container */
+.message-container {
+  margin: 10px;
+  padding: 10px;
+}
+
+.message-container-title {
+  text-align: center;
+}
+
+.container {
+  margin: 5px;
+  padding: 20px;
+  border: 1px solid var(--black);
+  border-radius: 15px;
+}
+
+.container li {
+  padding: 4px 20px;
+}
+
+.message-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* navbar */
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-title {
+  text-align: center;
+}
+
+/* form container */
+label {
+  font-size: 1.2rem;
+}
+
+input {
+  display: block;
+  padding: 5px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.form-container {
+  margin: 0 auto;
+  padding: 5px;
+  max-width: 600px;
+}
+
+.form-header {
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.form-group {
+  margin: 10px auto;
+}
+
+.post-form {
+  text-align: center;
+}
+
+.post-form-label {
+  font-size: 1.1rem;
 }
