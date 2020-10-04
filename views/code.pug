@@ -4,7 +4,10 @@ block content
   main.main-container
     h1 #{title}
 
-    h2 Enter the secret code so you can become a full member!
+    h2.navbar-title Enter the secret code so you can become a full member!
+
+    if message
+      p.error-message #{message}
 
     section.form-container
       form(method='POST' action='')
@@ -13,8 +16,6 @@ block content
           input(type='text' name='code', required='true', value=(undefined===input ? '' : input))
         button.btn.submit(type='submit') Submit
 
-    if message
-      p #{message}
-
+    
     section.post-form
       a.btn.go-back(href='/') I'll enter the secret code later

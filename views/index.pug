@@ -24,58 +24,58 @@ block content
           a.btn.log-in(href='/login') Log In
           a.btn.sign-up(href='/sign-up') Sign Up
 
-  //- Shows all messages
-  section.message-container
-    h2.message-container-title The conversation so far:
-    ul
-      each message in message_list
-        div.container
-          if user !== undefined
-            li.message-user
-              i.far.fa-user
-              |  
-              span.message-label User: 
-              | #{ message.user.username }
-          else
+    //- Shows all messages
+    section.message-container
+      h2.message-container-title The conversation so far:
+      ul
+        each message in message_list
+          div.container
+            if user !== undefined
+              li.message-user
+                i.far.fa-user
+                |  
+                span.message-label User: 
+                | #{ message.user.username }
+            else
+              li
+                i.far.fa-user 
+                |  
+                span.message-label Anonymous User
             li
-              i.far.fa-user 
+              i.far.fa-lightbulb
               |  
-              span.message-label Anonymous User
-          li
-            i.far.fa-lightbulb
-            |  
-            span.message-label Title: 
-            | #{ message.title }
-          li
-            i.far.fa-comment
-            |  
-            span.message-label Text: 
-            | #{ message.text }
-          li
-            i.far.fa-calendar-alt
-            |  
-            span.message-label Added: 
-            | #{ message.added }
+              span.message-label Title: 
+              | #{ message.title }
+            li
+              i.far.fa-comment
+              |  
+              span.message-label Text: 
+              | #{ message.text }
+            li
+              i.far.fa-calendar-alt
+              |  
+              span.message-label Added: 
+              | #{ message.added }
 
-      else
-        div.message-container
-          li There are no messages
+        else
+          div.message-container
+            li There are no messages
 
-  //- Form only shows if use is a Member or Admin
-  if user !== undefined
-    section.form-container
-      if user.membership === 'Member' || user.membership === 'Admin'
-        h2.form-header Add to the conversation:
-        form(method='POST' action='')
-          div.form-group
-            label(for='title') Message Title:
-            input(type='text' name='title' required='true' value=(undefined === message ? '' : message.title))
-          div.form-group
-            label(for='text') Message Body:
-            input(type='text' name='text' required='true' value=(undefined === message ? '' : message.text))
-          button.btn.submit(type='submit') Submit
+    //- Form only shows if use is a Member or Admin
+    if user !== undefined
+      section.form-container
+        if user.membership === 'Member' || user.membership === 'Admin'
+          h2.form-header Add to the conversation:
+          form(method='POST' action='')
+            div.form-group
+              label(for='title') Message Title:
+              input(type='text' name='title' required='true' value=(undefined === message ? '' : message.title))
+            div.form-group
+              label(for='text') Message Body:
+              input(type='text' name='text' required='true' value=(undefined === message ? '' : message.text))
+            button.btn.submit(type='submit') Submit
 
-  if errors
-    ul
-      for error in errors
-        li!= error.msg
+    if errors
+      ul
+        for error in errors
+          li!= error.msg

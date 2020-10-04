@@ -54,7 +54,7 @@ exports.index_post = [
       user: req.user.id,
       title: req.body.title,
       text: req.body.text,
-      added: moment().format('MMMM Do, YYYY  h:mm:ss'),
+      added: moment().format('MMMM Do, YYYY  hh:mm:ss'),
     });
 
     if (!errors.isEmpty()) {

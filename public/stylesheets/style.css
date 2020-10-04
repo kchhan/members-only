@@ -7,6 +7,9 @@
   --log-out: rgb(255, 55, 95);
   --go-back: rgb(255, 55, 95);
   --submit: rgb(10, 132, 255);
+  --body-background: rgb(152, 255, 152);
+  --main-background: rgb(255, 255, 255);
+  --messages-background: rgb(200, 200, 200);
 }
 
 * {
@@ -63,9 +66,14 @@ li {
 
 /* content */
 body {
+  background-color: var(--body-background);
+}
+
+.main-container {
   margin: 50px auto;
   padding: 20px;
   max-width: 800px;
+  background-color: var(--main-background);
   border: 1px solid var(--black);
   border-radius: 15px;
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
@@ -89,6 +97,7 @@ h1 {
 .container {
   margin: 5px;
   padding: 20px;
+  background-color: var(--messages-background);
   border: 1px solid var(--black);
   border-radius: 15px;
 }
