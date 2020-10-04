@@ -59,7 +59,7 @@ exports.index_post = [
 
     if (!errors.isEmpty()) {
       // there are errors. render again with filled in fields
-      res.render('index', {
+      return res.render('index', {
         title: 'Members Only',
         message: {
           title: req.body.title,
@@ -67,13 +67,11 @@ exports.index_post = [
         },
         errors: errors.array(),
       });
-      return;
     } else {
       message.save((err) => {
         if (err) return next(err);
         res.redirect('/');
       });
-      return;
     }
   },
 ];
@@ -152,7 +150,7 @@ exports.sign_up_post = [
 
       if (!errors.isEmpty()) {
         // there are errors. render again with filled in fields
-        res.render('sign_up_form', {
+        return res.render('sign_up_form', {
           title: 'Sign Up',
           user: {
             first_name: firstname,
@@ -161,7 +159,6 @@ exports.sign_up_post = [
           },
           errors: errors.array(),
         });
-        return;
       } else {
         user.save((err) => {
           if (err) {
@@ -169,7 +166,6 @@ exports.sign_up_post = [
           }
           res.redirect('/login');
         });
-        return;
       }
     });
   },
@@ -177,7 +173,6 @@ exports.sign_up_post = [
 
 // GET request to secret code form
 exports.code_get = (req, res, next) => {
-  console.log(req.user)
   res.render('code', { title: 'Secret Code' });
 };
 
@@ -185,7 +180,7 @@ exports.code_get = (req, res, next) => {
 exports.code_post = (req, res, next) => {
   // validate and sanitize
   body('code').trim().escape();
-  
+
   const code = process.env.SECRET_CODE;
   const input = req.body.code;
 
@@ -195,12 +190,12 @@ exports.code_post = (req, res, next) => {
       { membership: 'Member' },
       (err, results) => {
         if (err) return next(err);
-        res.redirect('/');
+        return res.redirect('/');
       }
     );
   } else {
-    res.render('code', {
-      title: "Secret Code",
+    return res.render('code', {
+      title: 'Secret Code',
       input: input,
       message: 'Sorry that was not the secret code',
     });
@@ -209,16 +204,29 @@ exports.code_post = (req, res, next) => {
 
 // GET request for log in form
 exports.login_get = (req, res, next) => {
-  res.render('login_form', { title: 'Log In' });
+  return res.render('login_form', { title: 'Log In' });
 };
 
 // POST request for log in form
-exports.login_post = [
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  }),
-];
+exports.login_post = (req, res, next) => {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.render('login_form', {
+        title: 'Log In',
+        message: "Sorry username or password is incorrect",
+      });
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+};
 
 // GET request for log out
 exports.logout_get = (req, res, next) => {

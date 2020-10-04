@@ -37,7 +37,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'code', resave: false, saveUninitialized: true }));
 
 // set up passportjs
 passport.use(
@@ -58,7 +57,6 @@ passport.use(
           return done(null, false, { message: 'Incorrect password' });
         }
       });
-      return done(null, user);
     });
   })
 );
@@ -72,6 +70,9 @@ passport.deserializeUser(function (id, done) {
     done(err, user);
   });
 });
+
+app.use(session({ secret: 'code', resave: false, saveUninitialized: true }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
