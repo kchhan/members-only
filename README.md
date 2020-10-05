@@ -8,11 +8,11 @@ Live Site: https://express-members-only.herokuapp.com/
 
 ## Tools Used:
 
-- [Node.js](<a href="https://nodejs.org/en/about/" target="_blank">) - JavaScript runtime for server-side development
-  - [Express](<a href="http://expressjs.com/" target="_blank">) - Node.js web application framework
-- [MongoDB](<a href="https://www.mongodb.com/" target="_blank">) - A document-based, cloud database
-  - [Mongoose](<a href="https://mongoosejs.com/" target="_blank">) - Schema-based object modeling tool
-- [Heroku](<a href="https://heroku.com" target="_blank">) - Cloud application platform
+- [Node.js](https://nodejs.org/en/about/) - JavaScript runtime for server-side development
+  - [Express](http://expressjs.com/) - Node.js web application framework
+- [MongoDB](https://www.mongodb.com/) - A document-based, cloud database
+  - [Mongoose](https://mongoosejs.com/) - Schema-based object modeling tool
+- [Heroku](https://heroku.com) - Cloud application platform
 
 ---
 
@@ -21,8 +21,8 @@ Live Site: https://express-members-only.herokuapp.com/
 - [x] Create a RESTful API
   - [x] REST: (Representational State Transfer)
   - [x] Be able to navigate the app through URL links
-- [x] Use [Passport.js](<a href="http://www.passportjs.org/" target="_blank">) to log in with authentication
-  - [x] Use [bcryptjs](<a href="https://www.npmjs.com/package/bcryptjs" target="_blank" >) to hash passwords stored in the database
+- [x] Use [Passport.js](http://www.passportjs.org/) to log in with authentication
+  - [x] Use [bcryptjs](https://www.npmjs.com/package/bcryptjs) to hash passwords stored in the database
 
 ---
 
