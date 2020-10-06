@@ -3,6 +3,7 @@
 ![Screenshot](./img/members-only.png 'Screenshot')
 
 Live Site: https://express-members-only.herokuapp.com/
+Use the code "WEBDEV" when prompted to become a member!
 
 ---
 
@@ -22,7 +23,7 @@ Live Site: https://express-members-only.herokuapp.com/
   - [x] REST: (Representational State Transfer)
   - [x] Be able to navigate the app through URL links
 - [x] Use [Passport.js](http://www.passportjs.org/) to log in with authentication
-  - [x] Use [bcryptjs](https://www.npmjs.com/package/bcryptjs) to hash passwords stored in the database
+  - [x] Use [bcrypt.js](https://www.npmjs.com/package/bcryptjs) to hash passwords stored in the database
 
 ---
 
